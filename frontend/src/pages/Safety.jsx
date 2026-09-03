@@ -39,21 +39,23 @@ export default function Safety() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-white">Policy &amp; Safety</h2>
+        <h2 className="text-2xl font-bold text-white tracking-tight">Policy &amp; Safety</h2>
         <p className="text-gray-400 mt-1">Bounded recovery workflow — the agent never has unlimited control</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="card">
           <div className="flex items-center gap-2 mb-6">
-            <Shield className="w-5 h-5 text-brand-400" />
+            <div className="w-8 h-8 rounded-lg bg-brand-500/10 border border-brand-500/25 flex items-center justify-center">
+              <Shield className="w-4 h-4 text-brand-400" />
+            </div>
             <h3 className="text-lg font-semibold text-white">Autonomous Action Policy</h3>
           </div>
           <div className="space-y-4">
             {policies.map((p) => (
-              <div key={p.name} className="flex items-center justify-between py-3 border-b border-gray-800 last:border-0">
+              <div key={p.name} className="flex items-center justify-between py-3 border-b border-white/[0.06] last:border-0">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-gray-800 flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-lg bg-white/[0.05] border border-white/10 flex items-center justify-center">
                     <p.icon className="w-4 h-4 text-gray-400" />
                   </div>
                   <span className="text-gray-300">{p.name}</span>
@@ -69,7 +71,9 @@ export default function Safety() {
 
         <div className="card">
           <div className="flex items-center gap-2 mb-6">
-            <XCircle className="w-5 h-5 text-danger-400" />
+            <div className="w-8 h-8 rounded-lg bg-danger-500/10 border border-danger-500/25 flex items-center justify-center">
+              <XCircle className="w-4 h-4 text-danger-400" />
+            </div>
             <h3 className="text-lg font-semibold text-white">Stopping Rules</h3>
           </div>
           <p className="text-sm text-gray-400 mb-4">
@@ -77,7 +81,7 @@ export default function Safety() {
           </p>
           <div className="space-y-3">
             {stoppingRules.map((rule, i) => (
-              <div key={i} className="flex items-center gap-3 p-3 bg-danger-950/20 border border-danger-900/30 rounded-lg">
+              <div key={i} className="flex items-center gap-3 p-3 bg-danger-500/[0.06] border border-danger-500/20 rounded-lg">
                 <XCircle className="w-4 h-4 text-danger-400 flex-shrink-0" />
                 <span className="text-sm text-gray-300">{rule}</span>
               </div>
@@ -91,7 +95,7 @@ export default function Safety() {
         <p className="text-xs text-gray-500 mb-4">Live counts from the most recent run</p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {stats.map((s) => (
-            <div key={s.label} className="bg-gray-800/50 rounded-lg p-4 text-center">
+            <div key={s.label} className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-4 text-center">
               <p className="text-3xl font-bold text-brand-400">{s.value}</p>
               <p className="text-xs text-gray-500 mt-1">{s.label}</p>
             </div>

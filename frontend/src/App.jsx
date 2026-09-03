@@ -18,13 +18,13 @@ export default function App() {
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <aside className="w-64 shrink-0 border-r border-gray-800 bg-gray-900/50 p-4 hidden md:flex md:flex-col">
-        <div className="flex items-center gap-2 px-2 mb-8">
-          <div className="w-9 h-9 rounded-lg bg-brand-600 flex items-center justify-center">
-            <Activity className="w-5 h-5 text-white" />
+      <aside className="w-64 shrink-0 border-r border-white/[0.06] bg-surface-950/60 backdrop-blur-sm p-4 hidden md:flex md:flex-col">
+        <div className="flex items-center gap-2.5 px-2 mb-8">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-400 to-accent-500 flex items-center justify-center shadow-glow">
+            <Activity className="w-5 h-5 text-surface-950" />
           </div>
           <div>
-            <p className="font-bold text-white leading-tight">RecoverAI</p>
+            <p className="font-bold text-white leading-tight tracking-tight">RecoverAI</p>
             <p className="text-[11px] text-gray-500 leading-tight">Revenue Recovery</p>
           </div>
         </div>
@@ -35,10 +35,10 @@ export default function App() {
               to={n.to}
               end={n.end}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
+                `flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all duration-150 ${
                   isActive
-                    ? 'bg-brand-950/50 text-brand-300 border border-brand-900'
-                    : 'text-gray-400 hover:text-white hover:bg-gray-800/50'
+                    ? 'bg-gradient-to-r from-brand-500/15 to-accent-500/10 text-brand-300 border border-brand-500/25 shadow-glow'
+                    : 'text-gray-400 border border-transparent hover:text-white hover:bg-white/[0.05]'
                 }`
               }
             >

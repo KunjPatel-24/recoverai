@@ -5,13 +5,13 @@ import { inr } from '../api'
 const API_BASE = '/api'
 
 const agentColors = {
-  RISK_DETECTOR: 'text-purple-400 bg-purple-950/30 border-purple-800',
-  ROOT_CAUSE_ANALYST: 'text-blue-400 bg-blue-950/30 border-blue-800',
-  RECOVERY_STRATEGIST: 'text-brand-400 bg-brand-950/30 border-brand-800',
-  SAFETY_GUARDIAN: 'text-warning-400 bg-warning-950/30 border-warning-800',
-  EXECUTOR: 'text-cyan-400 bg-cyan-950/30 border-cyan-800',
-  OUTCOME_MONITOR: 'text-brand-400 bg-brand-950/30 border-brand-800',
-  WEBHOOK_HANDLER: 'text-pink-400 bg-pink-950/30 border-pink-800',
+  RISK_DETECTOR: 'text-accent-300 bg-accent-500/10 border-accent-500/25',
+  ROOT_CAUSE_ANALYST: 'text-sky-300 bg-sky-500/10 border-sky-500/25',
+  RECOVERY_STRATEGIST: 'text-brand-300 bg-brand-500/10 border-brand-500/25',
+  SAFETY_GUARDIAN: 'text-warning-300 bg-warning-500/10 border-warning-500/25',
+  EXECUTOR: 'text-cyan-300 bg-cyan-500/10 border-cyan-500/25',
+  OUTCOME_MONITOR: 'text-brand-300 bg-brand-500/10 border-brand-500/25',
+  WEBHOOK_HANDLER: 'text-pink-300 bg-pink-500/10 border-pink-500/25',
 }
 
 export default function AuditTrail() {
@@ -47,7 +47,7 @@ export default function AuditTrail() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-white">Audit Trail</h2>
+        <h2 className="text-2xl font-bold text-white tracking-tight">Audit Trail</h2>
         <p className="text-gray-400 mt-1">Complete immutable log of every agent decision</p>
       </div>
 
@@ -59,7 +59,7 @@ export default function AuditTrail() {
             placeholder="Search by case ID or action…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-gray-900 border border-gray-800 rounded-lg pl-10 pr-4 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-brand-500"
+            className="w-full bg-white/[0.04] border border-white/10 rounded-lg pl-10 pr-4 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-brand-500/50 focus:ring-2 focus:ring-brand-500/20 transition-all"
           />
         </div>
         <div className="flex items-center gap-2">
@@ -67,10 +67,10 @@ export default function AuditTrail() {
           <select
             value={agentFilter}
             onChange={(e) => setAgentFilter(e.target.value)}
-            className="bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-500"
+            className="bg-white/[0.04] border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-500/50 focus:ring-2 focus:ring-brand-500/20 transition-all"
           >
             {agents.map((a) => (
-              <option key={a} value={a}>{(a || '').replace(/_/g, ' ')}</option>
+              <option key={a} value={a} className="bg-surface-900">{(a || '').replace(/_/g, ' ')}</option>
             ))}
           </select>
         </div>
@@ -80,19 +80,19 @@ export default function AuditTrail() {
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-gray-800 text-gray-400 text-left">
-                <th className="px-6 py-3 font-medium">Time</th>
-                <th className="px-6 py-3 font-medium">Case</th>
-                <th className="px-6 py-3 font-medium">Agent</th>
-                <th className="px-6 py-3 font-medium">Action</th>
-                <th className="px-6 py-3 font-medium">Details</th>
-                <th className="px-6 py-3 font-medium">Status</th>
-                <th className="px-6 py-3 font-medium text-right">Amount</th>
+              <tr className="border-b border-white/[0.06] text-gray-500 text-left bg-white/[0.02]">
+                <th className="px-6 py-3 font-medium uppercase text-[11px] tracking-wider">Time</th>
+                <th className="px-6 py-3 font-medium uppercase text-[11px] tracking-wider">Case</th>
+                <th className="px-6 py-3 font-medium uppercase text-[11px] tracking-wider">Agent</th>
+                <th className="px-6 py-3 font-medium uppercase text-[11px] tracking-wider">Action</th>
+                <th className="px-6 py-3 font-medium uppercase text-[11px] tracking-wider">Details</th>
+                <th className="px-6 py-3 font-medium uppercase text-[11px] tracking-wider">Status</th>
+                <th className="px-6 py-3 font-medium uppercase text-[11px] tracking-wider text-right">Amount</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-800">
+            <tbody className="divide-y divide-white/[0.05]">
               {filtered.map((log, i) => (
-                <tr key={i} className="hover:bg-gray-800/30 transition-colors">
+                <tr key={i} className="hover:bg-white/[0.04] transition-colors">
                   <td className="px-6 py-3 text-gray-500 whitespace-nowrap">
                     {log.timestamp ? new Date(log.timestamp).toLocaleTimeString() : ''}
                   </td>

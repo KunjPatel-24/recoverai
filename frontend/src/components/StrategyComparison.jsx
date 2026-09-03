@@ -25,9 +25,11 @@ export default function StrategyComparison({ strategies = [], selected }) {
                 </span>
                 <span className="text-gray-500">{pct}%</span>
               </div>
-              <div className="h-6 rounded bg-gray-800 overflow-hidden relative">
+              <div className="h-6 rounded-md bg-white/[0.04] border border-white/[0.06] overflow-hidden relative">
                 <div
-                  className={`h-full ${isSel ? 'bg-brand-500' : 'bg-gray-600'}`}
+                  className={`h-full transition-all duration-500 ${
+                    isSel ? 'bg-gradient-to-r from-brand-500 to-brand-400 shadow-glow' : 'bg-gray-600/70'
+                  }`}
                   style={{ width: `${w}%` }}
                 />
                 <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[11px] text-gray-200">

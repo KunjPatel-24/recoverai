@@ -23,10 +23,10 @@ export default function RecoveryCases() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-white">Recovery Cases</h2>
+          <h2 className="text-2xl font-bold text-white tracking-tight">Recovery Cases</h2>
           <p className="text-gray-400 mt-1">{cases.length} cases · click any row for the AI decision</p>
         </div>
-        <button onClick={load} className="flex items-center gap-2 text-sm text-gray-400 hover:text-white">
+        <button onClick={load} className="btn-secondary flex items-center gap-2 text-sm">
           <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
           Refresh
         </button>

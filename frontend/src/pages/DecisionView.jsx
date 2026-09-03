@@ -66,7 +66,7 @@ export default function DecisionView() {
 
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-white">Case {c.id}</h2>
+          <h2 className="text-2xl font-bold text-white tracking-tight">Case {c.id}</h2>
           <p className="text-gray-400 mt-1">Transaction: {c.transaction_id}</p>
         </div>
         {c.status === 'APPROVED' && (
@@ -105,10 +105,10 @@ export default function DecisionView() {
 
           <div className="card">
             <div className="flex items-center gap-2 mb-4">
-              <Brain className="w-5 h-5 text-purple-400" />
+              <Brain className="w-5 h-5 text-accent-400" />
               <h3 className="text-lg font-semibold text-white">Root Cause Analysis</h3>
             </div>
-            <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700">
+            <div className="bg-white/[0.03] rounded-lg p-4 border border-white/[0.08]">
               <div className="flex items-center justify-between gap-3">
                 <p className="text-white font-medium">{c.root_cause || 'Analyzing…'}</p>
                 {c.explanation_source && (
@@ -143,15 +143,15 @@ export default function DecisionView() {
 
           <div className="card">
             <div className="flex items-center gap-2 mb-4">
-              <Target className="w-5 h-5 text-blue-400" />
+              <Target className="w-5 h-5 text-sky-400" />
               <h3 className="text-lg font-semibold text-white">Recovery Strategy</h3>
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-gray-800/50 rounded-lg p-4 border border-brand-900">
+              <div className="bg-brand-500/[0.06] rounded-lg p-4 border border-brand-500/25">
                 <p className="text-xs text-gray-400">Selected Strategy</p>
                 <p className="text-xl font-bold text-brand-400">{(c.selected_strategy || '—').replace(/_/g, ' ')}</p>
               </div>
-              <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700">
+              <div className="bg-white/[0.03] rounded-lg p-4 border border-white/[0.08]">
                 <p className="text-xs text-gray-400">Recovery Probability</p>
                 <p className="text-xl font-bold text-white">
                   {c.recovery_probability ? `${(c.recovery_probability * 100).toFixed(0)}%` : '—'}
@@ -174,7 +174,7 @@ export default function DecisionView() {
                 { name: 'Fraud Signal', check: !(tx && tx.fraud_signal === 'high') },
                 { name: 'Diagnosis Confidence (≥ 40%)', check: (c.root_cause_confidence || 0) >= 0.4 },
               ].map((item) => (
-                <div key={item.name} className="flex items-center justify-between py-2 border-b border-gray-800 last:border-0">
+                <div key={item.name} className="flex items-center justify-between py-2 border-b border-white/[0.06] last:border-0">
                   <span className="text-gray-300">{item.name}</span>
                   {item.check
                     ? <CheckCircle className="w-5 h-5 text-brand-400" />
@@ -206,7 +206,7 @@ export default function DecisionView() {
         <h3 className="text-lg font-semibold text-white mb-4">Case Audit Trail</h3>
         <div className="space-y-2">
           {audit.map((log, i) => (
-            <div key={i} className="flex items-center gap-3 text-sm py-2 border-b border-gray-800 last:border-0">
+            <div key={i} className="flex items-center gap-3 text-sm py-2 border-b border-white/[0.06] last:border-0">
               <span className="text-gray-500 font-mono text-xs w-20">
                 {log.timestamp ? new Date(log.timestamp).toLocaleTimeString() : ''}
               </span>

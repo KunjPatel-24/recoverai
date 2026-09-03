@@ -5,7 +5,7 @@ function statusBadge(status) {
   if (status === 'SUCCESS') return 'badge-success'
   if (status === 'REJECTED' || status === 'FAILED') return 'badge-danger'
   if (status === 'ESCALATED') return 'badge-warning'
-  return 'badge-warning'
+  return 'badge-accent'
 }
 
 function priorityTone(p) {
@@ -21,31 +21,31 @@ export default function RecoveryTable({ cases = [] }) {
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-gray-800 text-gray-400 text-left">
-              <th className="px-5 py-3 font-medium">Case</th>
-              <th className="px-5 py-3 font-medium">Txn</th>
-              <th className="px-5 py-3 font-medium text-right">Amount</th>
-              <th className="px-5 py-3 font-medium">Category</th>
-              <th className="px-5 py-3 font-medium">Priority</th>
-              <th className="px-5 py-3 font-medium">Strategy</th>
-              <th className="px-5 py-3 font-medium text-right">Recovered</th>
-              <th className="px-5 py-3 font-medium">Status</th>
+            <tr className="border-b border-white/[0.06] text-gray-500 text-left bg-white/[0.02]">
+              <th className="px-5 py-3 font-medium uppercase text-[11px] tracking-wider">Case</th>
+              <th className="px-5 py-3 font-medium uppercase text-[11px] tracking-wider">Txn</th>
+              <th className="px-5 py-3 font-medium uppercase text-[11px] tracking-wider text-right">Amount</th>
+              <th className="px-5 py-3 font-medium uppercase text-[11px] tracking-wider">Category</th>
+              <th className="px-5 py-3 font-medium uppercase text-[11px] tracking-wider">Priority</th>
+              <th className="px-5 py-3 font-medium uppercase text-[11px] tracking-wider">Strategy</th>
+              <th className="px-5 py-3 font-medium uppercase text-[11px] tracking-wider text-right">Recovered</th>
+              <th className="px-5 py-3 font-medium uppercase text-[11px] tracking-wider">Status</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-800">
+          <tbody className="divide-y divide-white/[0.05]">
             {cases.map((c) => (
               <tr
                 key={c.id}
                 onClick={() => navigate(`/cases/${c.id}`)}
-                className="hover:bg-gray-800/40 transition-colors cursor-pointer"
+                className="hover:bg-white/[0.04] transition-colors cursor-pointer"
               >
                 <td className="px-5 py-3 font-mono text-gray-200">{c.id}</td>
                 <td className="px-5 py-3 font-mono text-gray-500">{c.transaction_id}</td>
-                <td className="px-5 py-3 text-right text-gray-200">{inr(c.amount_at_risk)}</td>
+                <td className="px-5 py-3 text-right text-gray-200 font-medium">{inr(c.amount_at_risk)}</td>
                 <td className="px-5 py-3 text-gray-400">{(c.category || '').replace(/_/g, ' ')}</td>
-                <td className={`px-5 py-3 font-medium ${priorityTone(c.priority)}`}>{c.priority}</td>
+                <td className={`px-5 py-3 font-semibold ${priorityTone(c.priority)}`}>{c.priority}</td>
                 <td className="px-5 py-3 text-gray-400">{(c.selected_strategy || '—').replace(/_/g, ' ')}</td>
-                <td className="px-5 py-3 text-right text-brand-400">
+                <td className="px-5 py-3 text-right text-brand-400 font-medium">
                   {c.actual_recovered ? inr(c.actual_recovered) : '—'}
                 </td>
                 <td className="px-5 py-3">

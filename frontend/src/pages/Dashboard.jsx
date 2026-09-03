@@ -8,7 +8,7 @@ import MetricsCards from '../components/MetricsCards'
 import AgentTimeline from '../components/AgentTimeline'
 import { getJSON, postJSON, inr } from '../api'
 
-const CAT_COLORS = ['#10b981', '#fbbf24', '#f87171', '#60a5fa', '#a78bfa']
+const CAT_COLORS = ['#34d399', '#fbbf24', '#fb7185', '#38bdf8', '#a78bfa']
 
 export default function Dashboard() {
   const [metrics, setMetrics] = useState(null)
@@ -80,7 +80,9 @@ export default function Dashboard() {
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-white">Recovery Command Center</h2>
+          <h2 className="text-2xl font-bold text-white tracking-tight bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+            Recovery Command Center
+          </h2>
           <p className="text-gray-400 mt-1">Autonomous, bounded revenue recovery</p>
         </div>
         <div className="flex items-center gap-2 flex-wrap shrink-0">
@@ -125,7 +127,7 @@ export default function Dashboard() {
                 <YAxis tick={{ fill: '#9ca3af', fontSize: 11 }} tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`} />
                 <Tooltip
                   cursor={{ fill: 'rgba(255,255,255,0.04)' }}
-                  contentStyle={{ background: '#111827', border: '1px solid #374151', borderRadius: 8, color: '#f3f4f6' }}
+                  contentStyle={{ background: '#12151e', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, color: '#f3f4f6', boxShadow: '0 12px 32px -16px rgba(0,0,0,0.6)' }}
                   formatter={(v) => [inr(v), 'At risk']}
                 />
                 <Bar dataKey="amount" radius={[4, 4, 0, 0]}>
