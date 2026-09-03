@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+*.db
+
+# Node / Vite
+node_modules/
+dist/
+
+# Env (contains a real LLM_API_KEY — never commit)
+backend/.env
