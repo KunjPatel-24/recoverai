@@ -62,6 +62,30 @@ curl http://localhost:8000/api/dashboard/metrics
 curl http://localhost:8000/api/dashboard/audit-trail
 ```
 
+### Verify the decisions (don't take the dashboard's word for it)
+
+With the backend running:
+
+```bash
+python ../validation_outputs/verify_decisions.py    # exit 0 = every decision matches policy
+```
+
+It re-checks every decision against a hand-written policy answer key that
+doesn't reuse the agents' code. The demo dataset plants its four edge cases at
+fixed positions, so the same check also runs against two **un-planted**
+profiles with different shapes:
+
+```bash
+python data/generate_data.py --profile stress   # fraud/opt-out heavy, amounts to ₹90k
+python data/generate_data.py --profile clean    # low fraud, everything within authority
+python data/generate_data.py                    # back to the demo dataset
+```
+
+All three pass — see
+[validation_outputs/validation_report.md](validation_outputs/validation_report.md).
+`--profile demo` (the default) is byte-identical to the committed CSV, so the
+numbers quoted above never move.
+
 ---
 
 ## How the pieces connect
@@ -123,7 +147,7 @@ recoverai/
 │   │   ├── audit_service.py         immutable audit trail
 │   │   └── razorpay_service.py      demo link (offline) or live Test Mode
 │   ├── routes/                  transactions · recovery · dashboard · webhook
-│   └── data/generate_data.py    deterministic 100-transaction generator
+│   └── data/generate_data.py    deterministic generator (--profile demo/stress/clean)
 └── frontend/                    React + Vite + Tailwind + Recharts
     ├── vite.config.js           /api + /webhook proxy to :8000
     ├── tailwind.config.js       brand/danger/warning palette

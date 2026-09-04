@@ -28,7 +28,9 @@ Decide → Safely Execute → Measure → Audit**.
   [`validation_outputs/verify_decisions.py`](./validation_outputs/verify_decisions.py)
   against a hand-written policy "answer key" that does **not** reuse the
   agents' own code, so a bug shared between the agent and its own checker
-  can't hide.
+  can't hide. The same check runs against two un-planted dataset profiles
+  (`--profile stress` / `clean`) so the guarantees are shown holding on data
+  that wasn't hand-arranged for the demo.
 
 ## The four-agent pipeline
 

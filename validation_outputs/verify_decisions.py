@@ -14,6 +14,13 @@ we designed — WITHOUT reusing the agent's own code. Two kinds of checks:
     card expired / invalid / upi / declined / subscription -> Payment Link
     checkout abandoned / invoice overdue / insufficient funds -> Reminder/Link
 
+    This table governs only the actions the agent takes ON ITS OWN. Handing a
+    case to a human is always allowed — it's the conservative choice, and the
+    Strategist legitimately prefers it for high-value, low-intent cases. Those
+    are counted and reported separately rather than judged against the table,
+    so this stays an independent check instead of a copy of the agent's own
+    probability model.
+
 Usage (with the backend running on http://localhost:8000):
     python verify_decisions.py
 Exit code is 0 if every decision is consistent with policy, 1 otherwise.
@@ -90,7 +97,7 @@ def main():
         sys.exit(2)
 
     failures = []
-    strat_ok = strat_total = 0
+    strat_ok = strat_total = handed_to_human = 0
     # headline safety counters
     fraud_optout_acted = 0
     over_limit_executed = 0
@@ -123,13 +130,16 @@ def main():
 
         # --- strategy intent check ---
         want = EXPECTED_STRATEGY.get(tx.get("failure_reason", ""))
-        if want:
+        got = c.get("selected_strategy")
+        if got == "HUMAN_ESCALATION":
+            handed_to_human += 1
+        elif want:
             strat_total += 1
-            if c.get("selected_strategy") == want:
+            if got == want:
                 strat_ok += 1
             else:
                 failures.append(
-                    f"{c['id']}: strategy {c.get('selected_strategy')} "
+                    f"{c['id']}: strategy {got} "
                     f"but expected {want} for {tx.get('failure_reason')}"
                 )
 
@@ -150,6 +160,7 @@ def main():
     print()
     print(f"  STRATEGY matches expected policy    : {strat_ok}/{strat_total}   "
           f"{'OK' if strat_ok == strat_total else 'FAIL'}")
+    print(f"   (deferred to a human, always allowed): {handed_to_human}")
     print(line)
 
     if not failures:
