@@ -103,6 +103,11 @@ executed and the outcome is measured. Every step writes an `audit_logs` row.
 ```
 recoverai/
 ├── README.md
+├── LICENSE
+├── project.md                   hard constraints + agent pipeline context
+├── validation_outputs/          independent decision verification
+│   ├── verify_decisions.py      checks agent decisions against a policy "answer key"
+│   └── validation_report.md     latest verification run + dashboard metrics
 ├── backend/                     FastAPI + SQLAlchemy + 4 agents
 │   ├── main.py                  app + routers
 │   ├── requirements.txt
