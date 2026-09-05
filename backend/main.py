@@ -1,3 +1,5 @@
+import os
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -10,10 +12,24 @@ app = FastAPI(
     version="1.0.0",
 )
 
+# Which browser origins may call this API.
+#
+# Local dev needs nothing: the Vite proxy makes requests same-origin. Once the
+# frontend is deployed it calls this API cross-origin, so set ALLOWED_ORIGINS to
+# a comma-separated list of frontend origins, e.g.
+#   ALLOWED_ORIGINS=https://recoverai.vercel.app,http://localhost:5173
+# Leaving it unset -- or set but blank, which is what Render does for a
+# `sync: false` var you skip at blueprint creation -- falls back to "*", which
+# is open but works everywhere.
+_origins = [o.strip().rstrip("/") for o in os.getenv("ALLOWED_ORIGINS", "").split(",") if o.strip()]
+_wildcard = not _origins or "*" in _origins
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
+    allow_origins=["*"] if _wildcard else _origins,
+    # Browsers reject a wildcard origin when credentials are allowed, so only
+    # turn credentials on once the origins are pinned to an explicit list.
+    allow_credentials=not _wildcard,
     allow_methods=["*"],
     allow_headers=["*"],
 )

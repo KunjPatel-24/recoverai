@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Search, Filter } from 'lucide-react'
-import { inr } from '../api'
-
-const API_BASE = '/api'
+import { inr, API_BASE } from '../api'
 
 const agentColors = {
   RISK_DETECTOR: 'text-accent-300 bg-accent-500/10 border-accent-500/25',

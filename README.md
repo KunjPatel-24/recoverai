@@ -21,7 +21,75 @@ recovered · 67.3% recovery rate**, with 34 approved, 1 escalated (over the
 - **Python 3.10+**
 - **Node.js 18+** (for the frontend)
 
-## Run it (two terminals in VS Code)
+## Live demo
+
+| | URL |
+|---|---|
+| Frontend | _paste your Vercel URL here after step 2_ |
+| Backend API | _paste your Render URL here after step 1_ |
+| API docs | _your Render URL_ + `/docs` |
+
+> The backend runs on Render's free plan, which spins down when idle. The first
+> request after a quiet spell takes ~30s to wake it; everything after is fast.
+
+## Deploy it yourself (~10 minutes, free)
+
+The repo ships with both deploy configs. You need a GitHub-connected
+[Render](https://render.com) account and a [Vercel](https://vercel.com) account.
+
+### 1. Backend → Render
+
+1. **New → Blueprint**, pick this repo. Render reads [`render.yaml`](render.yaml)
+   and creates the `recoverai-api` web service (root dir `backend`, start
+   command `uvicorn main:app --host 0.0.0.0 --port $PORT`).
+2. Leave the secret env vars blank to run in **offline demo mode** — the agents
+   fall back to deterministic logic and no external API is called. To use a real
+   LLM, set `LLM_API_KEY` in the dashboard.
+3. Deploy, then confirm `https://<your-service>.onrender.com/health` returns
+   `{"status":"healthy"}`.
+
+### 2. Frontend → Vercel
+
+1. **Add New → Project**, pick this repo, and set **Root Directory** to
+   `frontend`. Vercel picks up [`frontend/vercel.json`](frontend/vercel.json)
+   for the Vite build and the SPA rewrite that keeps deep links like
+   `/cases/abc123` working on refresh.
+2. Add one environment variable **before** deploying:
+
+   ```
+   VITE_API_BASE = https://<your-service>.onrender.com/api
+   ```
+
+   Vite inlines this at build time, so changing it later needs a redeploy.
+3. Deploy, and note the resulting `*.vercel.app` URL.
+
+### 3. Lock CORS to your frontend
+
+Back in Render, set `ALLOWED_ORIGINS` to your Vercel URL and redeploy:
+
+```
+ALLOWED_ORIGINS=https://<your-project>.vercel.app
+```
+
+Unset, the API allows any origin — fine for a demo, worth pinning for anything
+public. Then open the Vercel URL and click **Run Recovery**.
+
+> **Data resets.** The free plan's disk is ephemeral, so the SQLite database is
+> wiped on each deploy and idle restart. The demo reseeds itself on **Run
+> Recovery**, so this is invisible. For durable data, add a Render Postgres and
+> point `DATABASE_URL` at it — the models already handle Postgres.
+
+### Just need to share it for ten minutes?
+
+Skip hosting entirely and tunnel your laptop:
+
+```bash
+npx localtunnel --port 5173     # or: cloudflared tunnel --url http://localhost:5173
+```
+
+Both servers must stay running, and the URL dies when you close the terminal.
+
+## Run it locally (two terminals in VS Code)
 
 ### Terminal 1 — backend (FastAPI, port 8000)
 

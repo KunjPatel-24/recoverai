@@ -1,0 +1,44 @@
+# Render blueprint for the RecoverAI backend.
+#
+# Deploy: Render Dashboard -> New -> Blueprint -> pick this repo. Render reads
+# this file, creates the service, and redeploys on every push to main.
+services:
+  - type: web
+    name: recoverai-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    # Render injects $PORT; binding 0.0.0.0 is what makes the service reachable
+    # from outside the container.
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+      # SQLite on the free plan lives on an ephemeral disk: it is wiped on every
+      # deploy and on the idle-spindown restart. That is fine for the demo,
+      # which reseeds via POST /api/recovery/run. For data that survives, create
+      # a Render Postgres instance and set DATABASE_URL to its connection string
+      # -- models/__init__.py already branches on "postgresql" in the URL, but
+      # you must also uncomment psycopg2-binary in requirements.txt first.
+      - key: DATABASE_URL
+        value: sqlite:///./recoverai.db
+      # Comma-separated frontend origins. Set this to your Vercel URL once the
+      # frontend is live; leaving it blank keeps the backend on "*".
+      - key: ALLOWED_ORIGINS
+        sync: false
+      # Secrets: set these in the Render dashboard, never in this file.
+      # The app runs fully offline in demo mode if they are left empty.
+      - key: LLM_API_KEY
+        sync: false
+      - key: LLM_BASE_URL
+        value: https://api.groq.com/openai/v1
+      - key: LLM_MODEL
+        value: llama-3.1-8b-instant
+      - key: RAZORPAY_KEY_ID
+        sync: false
+      - key: RAZORPAY_KEY_SECRET
+        sync: false
+      - key: RAZORPAY_WEBHOOK_SECRET
+        sync: false

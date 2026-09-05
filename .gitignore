@@ -11,3 +11,8 @@ dist/
 
 # Env (contains a real LLM_API_KEY — never commit)
 backend/.env
+
+# Local env overrides (frontend/.env.example is the committed template)
+frontend/.env
+frontend/.env.local
+.env.local

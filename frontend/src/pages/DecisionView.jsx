@@ -2,9 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { ArrowLeft, Brain, Target, Shield, CheckCircle, XCircle, Loader } from 'lucide-react'
 import StrategyComparison from '../components/StrategyComparison'
-import { inr } from '../api'
-
-const API_BASE = '/api'
+import { inr, API_BASE } from '../api'
 
 export default function DecisionView() {
   const { caseId } = useParams()
