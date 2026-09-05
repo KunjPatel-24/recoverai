@@ -25,9 +25,9 @@ recovered · 67.3% recovery rate**, with 34 approved, 1 escalated (over the
 
 | | URL |
 |---|---|
-| Frontend | _paste your Vercel URL here after step 2_ |
-| Backend API | _paste your Render URL here after step 1_ |
-| API docs | _your Render URL_ + `/docs` |
+| Frontend | [https://recoverai-sandy.vercel.app/](https://recoverai-sandy.vercel.app/) |
+| Backend API | [https://recoverai-api-v0em.onrender.com/](https://recoverai-api-v0em.onrender.com/) |
+| API docs | [https://recoverai-api-v0em.onrender.com/docs](https://recoverai-api-v0em.onrender.com/docs) |
 
 > The backend runs on Render's free plan, which spins down when idle. The first
 > request after a quiet spell takes ~30s to wake it; everything after is fast.
